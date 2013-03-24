@@ -1,0 +1,61 @@
+<!-- 
+Here's the most straightforward way to create a drawing application with canvas:
+
+Attach a mousedown, mousemove, and mouseup event listener to the canvas DOM
+on mousedown, get the mouse coordinates, and use the moveTo() method to position your drawing cursor and the beginPath() method to begin a new drawing path.
+on mousemove, continuously add a new point to the path with lineTo(), and color the last segment with stroke().
+on mouseup, set a flag to disable the drawing.
+From there, you can add all kinds of other features like giving the user the ability to choose a line thickness, color, brush strokes, and even layers.
+-->
+
+<!DOCTYPE HTML>
+<html>
+<head>
+  <style>
+	body {
+		margin: 0px;
+		padding: 0px;
+	}
+	</style>
+</head>
+<body>
+	<div id="status"></div>
+	<canvas id="myCanvas" width="600px" height="600px"></canvas>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript">
+	jQuery(document).ready(function(e){
+   		var clicked = false;
+   		$(document).mousemove(function(e){
+     		$('#status').html(e.pageX +', '+ e.pageY);
+		
+			var canvas = document.getElementById('myCanvas');
+			var context = canvas.getContext('2d');
+
+			
+			
+		
+			
+			console.log(canvas);
+   			canvas.addEventListener('mousedown', function(event){
+   				console.log("Mousedown!");
+   				clicked = true;
+   				context.beginPath();
+   				context.moveTo(event.pageX, event.pageY);
+   			}, false);
+   			canvas.addEventListener('mousemove', function(event){
+   				context.lineTo(event.pageX, event.pageY);
+   				if (clicked === true){
+   					context.stroke();
+   				}	
+   			}, false);
+   			document.addEventListener('mouseup', function(event){
+   				clicked = false;
+   				console.log("you're at mouseup");
+   				console.log("what now?");
+   			}, false);
+		});
+   	});
+
+	</script>
+</body>
+</html>
